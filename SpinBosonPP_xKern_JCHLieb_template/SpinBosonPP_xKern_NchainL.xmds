@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simulation xmds-version="2">
+
+  <author>
+    A Ferrier
+  </author>
+
+  <description>
+    Positive P for N unit cell JC quasi-Lieb lattice using normalised 3 variable kernel
+  </description>
+
+  <features>
+    <benchmark />
+    <bing />
+    <halt_non_finite />
+    <auto_vectorise />
+    <validation kind="run-time" />
+    <globals>
+      <![CDATA[
+        real sc;
+      ]]>
+    </globals>
+    <arguments>
+
+      <!-- Numerical Specifications -->
+      <argument name="Ttot" type="real" default_value="100"     />
+
+      <!-- Number of Sites -->
+      <argument name="N" type="integer" default_value="3"    />
+
+      <!-- Parameter Specifications -->
+      <argument name="gamB" type="real" default_value="1.0"    />
+      <argument name="Gamma_d" type="real" default_value="0.01"   />
+      <argument name="Gamma_ph" type="real" default_value="0.01"   />
+      <argument name="g" type="real" default_value="0.1"        />
+      <argument name="OmC" type="real" default_value="1.0"      />
+      <argument name="OmZ" type="real" default_value="1.0"      />
+      <argument name="Scal" type="real" default_value="1.0"     />
+      <argument name="J" type="real" default_value="1.0"        />
+
+      <!-- Pump Specifications -->
+      <argument name="Fp" type="real" default_value="1.0"       />
+      <argument name="Fa" type="real" default_value="0.0"       />
+      <argument name="h" type="real" default_value="0.0"        />
+
+      <!-- Seeding noise vector. -->
+      <argument name="seed1" type="integer" default_value="8"   />
+      <argument name="seed2" type="integer" default_value="6"   />
+      <argument name="seed3" type="integer" default_value="5"   />
+      <argument name="seed4" type="integer" default_value="7"   />
+      <argument name="seed5" type="integer" default_value="3"   />
+      <argument name="seed6" type="integer" default_value="13"   />
+
+      <!-- Handling input argument for diffusion Gauge sc = Scal 
+      unless Scal = 0, in which case we use parameter dependent value or set to default sc = 1 if this would cause error due to division by zero -->
+      <![CDATA[
+        if (Scal == 0) {
+          if (gamB == 0 || (Gamma_d+Gamma_ph) == 0) {
+            sc = 1.0;
+          } else {
+            sc = gamB/(Gamma_d+Gamma_ph);
+          }
+        } else {
+          sc = Scal;
+        }
+      ]]>
+
+    </arguments>
+  </features>
+
+  <geometry>
+    <propagation_dimension>
+      t
+    </propagation_dimension>
+    <transverse_dimensions>
+      <dimension name="j" type="integer" lattice="N" domain="(1,N)" />
+    </transverse_dimensions>
+  </geometry>
+
+<!-- %% Phase space variables, initial state 0 bosons, spin down  %% -->
+  <vector name="trajectory" type="complex" dimensions="j">
+    <components>
+      z
+      w
+      x
+      alpha
+      beta
+      alphb
+      betb
+    </components>
+    <initialisation>
+      <![CDATA[
+        z = 0;
+        w = 0;
+        x = 0;
+        alpha = 0;
+        beta = 0;
+        alphb = 0;
+        betb = 0;
+      ]]>
+    </initialisation>
+  </vector>
+
+<!-- Complex Noises from JC interaction -->
+  <noise_vector name="QNoiseC" dimensions="j" kind="wiener" type="complex" method="dsfmt" seed="seed1 seed2 seed3 seed4 seed5 seed6">
+    <components>
+        eta_z
+        eta_w
+        eta_A
+        eta_B
+    </components>
+  </noise_vector>
+
+<!-- Integrate element to solve for trajectories -->
+  <sequence>
+    <integrate algorithm="SI" interval="Ttot" steps="1000000">
+      <samples>
+        1000
+      </samples>
+
+      <operators>
+
+        <dependencies>
+          QNoiseC
+        </dependencies>
+
+        <integration_vectors>
+          trajectory
+        </integration_vectors>
+
+        <![CDATA[
+
+          int j_plus = (j%N) + 1;
+          int j_minus = N - (N+1-j)%N;
+
+          dalpha_dt = -i*OmC*alpha -0.5*gamB*alpha -1.5*i*g*z -i*Fa +sqrt(i*g*sc)*z*conj(eta_z) +i*J*alphb(j => j) +i*J*alphb(j => j_minus)
+                        -sqrt(i*g*sc)*x*conj(eta_A);
+
+          dbeta_dt = i*OmC*beta -0.5*gamB*beta +1.5*i*g*w +i*Fa -sqrt(i*g*sc)*w*conj(eta_w) -i*J*betb(j => j) -i*J*betb(j => j_minus)
+                        +sqrt(i*g*sc)*x*conj(eta_B);
+
+          dalphb_dt = -i*OmC*alphb -0.5*gamB*alphb -i*Fp +i*J*alpha(j => j_plus) +i*J*alpha(j => j);
+
+          dbetb_dt = i*OmC*betb -0.5*gamB*betb +i*Fp -i*J*beta(j => j_plus) -i*J*beta(j => j);
+
+          dz_dt = -i*OmZ*z -0.5*i*h*(1-2*x) -i*g*alpha +2*i*g*alpha*x +sqrt(i*g/sc)*(z*eta_z +z*eta_w +eta_B) -0.5*Gamma_ph*z -0.5*Gamma_d*z;
+
+          dw_dt = i*OmZ*w +0.5*i*h*(1-2*x) +i*g*beta -2*i*g*beta*x +sqrt(i*g/sc)*(w*eta_z +w*eta_w +eta_A) -0.5*Gamma_ph*w -0.5*Gamma_d*w;
+
+          dx_dt = 0.5*i*h*z -0.5*i*h*w +i*g*z*beta -i*g*w*alpha +sqrt(i*g/sc)*x*eta_z +sqrt(i*g/sc)*x*eta_w -Gamma_d*x;
+
+        ]]>
+      </operators>
+
+    </integrate>
+
+  </sequence>
+
+<!-- %%%%%%%%%%%%%% Saving data %%%%%%%%%%%%%%%%%%% -->
+
+  <output filename="file_output.xsil" format="hdf5">
+    <sampling_group basis="j" initial_sample="yes" >
+      <dependencies>
+        trajectory
+      </dependencies>
+      <moments>
+        zR
+        zI
+        wR
+        wI
+        xR
+        xI
+        alphaR
+        alphaI
+        betaR
+        betaI
+        alphbR
+        alphbI
+        betbR
+        betbI
+
+      </moments>
+      <![CDATA[
+        _SAMPLE_COMPLEX(z);
+        _SAMPLE_COMPLEX(w);
+        _SAMPLE_COMPLEX(x);
+        _SAMPLE_COMPLEX(alpha);
+        _SAMPLE_COMPLEX(beta);
+        _SAMPLE_COMPLEX(alphb);
+        _SAMPLE_COMPLEX(betb);
+      ]]>
+    </sampling_group>
+
+  </output>
+
+</simulation>
