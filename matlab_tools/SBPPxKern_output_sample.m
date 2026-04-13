@@ -1,14 +1,14 @@
-function [t, z, w, x, alpha, beta] = SBPPxKern_output_sample(omC, omZ, g, gamB, Gamma_phi, Gamma_d, F, tf, nsamples)
+function [t, z, w, x, alpha, beta] = SBPPxKern_output_sample(omC, omZ, g, gamB, Gamma_phi, Gamma_d, F, h, tf, nsamples)
 
 % Function for collecting all output data of many realisations of
-% SpinBosonPP_xKern_1site with parameters F,omC, omZ, g, gamB, Gamma_phi, Gamma_d,
+% SpinBosonPP_xKern_1site with parameters F, h, omC, omZ, g, gamB, Gamma_phi, Gamma_d,
 % with nsamples realisations at time tf.
 
 %Loop over realisations to read
 for nsample = 1:nsamples
 
     %Read data from h5 file
-    name_File=['file_output_1Site_OmC' correctnum2str(omC) '_OmZ' correctnum2str(omZ) '_g' correctnum2str(g) '_gamB' correctnum2str(gamB) '_GamPh' correctnum2str(Gamma_phi) '_GamD' correctnum2str(Gamma_d) '_F' correctnum2str(F) '_tf' num2str(tf) '_Re' num2str(nsample) '.h5'];
+    name_File=['file_output_1Site_OmC' correctnum2str(omC) '_OmZ' correctnum2str(omZ) '_g' correctnum2str(g) '_gamB' correctnum2str(gamB) '_GamPh' correctnum2str(Gamma_phi) '_GamD' correctnum2str(Gamma_d) '_F' correctnum2str(F) '_h' correctnum2str(h) '_tf' num2str(tf) '_Re' num2str(nsample) '.h5'];
     t = h5read(name_File, '/1/t');
     zR = h5read(name_File, '/1/zR');
     zR = permute(zR, ndims(zR):-1:1);
