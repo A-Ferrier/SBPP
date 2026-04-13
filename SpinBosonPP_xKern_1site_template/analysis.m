@@ -27,7 +27,7 @@ end
 filenameout = ['analysis_output_SBPP_xKern_1Site_Sc' correctnum2str(Sc) '_g' correctnum2str(g) '_F' correctnum2str(F) '_gamB' correctnum2str(gamB) '_OmC' correctnum2str(omC) '_OmZ' correctnum2str(omZ) '_h' correctnum2str(h) '_GamPh' correctnum2str(Gamma_phi) '_GamD' correctnum2str(Gamma_d) '_tf' num2str(tf)  '.mat'];
 
 %Read simulation output files and collect data
-[t, z, w, x, alpha, beta] = SBPPxKern_output_sample(omC, omZ, g, gamB, Gamma_phi, Gamma_d, F, tf, nsamples);
+[t, z, w, x, alpha, beta] = SBPPxKern_output_sample(omC, omZ, g, gamB, Gamma_phi, Gamma_d, F, h, tf, nsamples);
 
 %Create output file and store dimensions
 save(filenameout, 't');
