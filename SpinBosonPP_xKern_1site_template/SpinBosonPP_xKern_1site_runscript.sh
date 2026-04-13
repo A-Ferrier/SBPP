@@ -11,7 +11,7 @@ gamB=1.0; # Boson dissipation
 hp=0.0; # Spin drive (transverse magnetic field)
 Gamma_ph=0.0; # Spin dephasing
 Gamma_d=0.0; # Spin decay
-Scal=10.0; # Diffusion gauge (G)
+Scal=1.0; # Diffusion gauge (G)
 time_run=100; # end time of simulation
 
 for sample in {1..1000} # Loop over 1 to total number of stochastic trajectories
