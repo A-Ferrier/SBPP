@@ -1,4 +1,4 @@
-function [t, z, w, x, alpha, beta, alphb, betb] = SBPPxKernLieb_output_sample(omC, omZ, g, J, kappa, Gamma_phi, Gamma_d, F, h, tf, N, nsamples)
+function [t, z, w, x, alpha, beta, alphb, betb] = SBPPxKernLieb_output_sample(omC, omZ, g, J, gamB, Gamma_phi, Gamma_d, F, h, tf, N, nsamples)
 
 % Function for collecting all output data of many realisations of
 % SpinBosonPP_xKern_JCHLieb with parameters F, h, omC, omZ, g, J, gamB, Gamma_phi, Gamma_d,
