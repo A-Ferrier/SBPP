@@ -2,13 +2,13 @@
 Positive-P simulations for driven dissipative Jaynes-Cummings-Hubbard models, using new 3 variable kernel approach for spins, written for [xmds2](http://www.xmds.org/), with optional Matlab post-processing library.
 
 ## Using the code for simulations 
-Once you have xmds2 installed, make a copy of the template directory for the geometry you wish to simulate, e.g. DDBH_Nsite_PP_template for 1D chains.  Use the command 
+Once you have xmds2 installed, make a copy of the template directory for the geometry you wish to simulate, e.g. SpinBosonPP_xKern_Nsite_template for 1D chains.  Use the command 
 ``` bash
-xmds2 DDBH_Nsite_PP.xmds
+xmds2 SpinBosonPP_xKern_Nsite.xmds
 ```
-to compile the xmds script and generate an executable.  The executable generates a single trajectory when run; the template directory also contains a bash script (DDBH_Nsite_PP_runscript.sh) to loop running for the desired numbers of stochastic trajectories and rename the output files appropriately.  Edit this runscript to set the system parameters and number of trajectories as desired, and then use 
+to compile the xmds script and generate an executable.  The executable generates a single trajectory when run; the template directory also contains a bash script (SpinBosonPP_xKern_Nsite_runscript.sh) to loop running for the desired numbers of stochastic trajectories and rename the output files appropriately.  Edit this runscript to set the system parameters and number of trajectories as desired, and then use 
 ``` bash
-./DDBH_Nsite_PP_runscript.sh
+./SpinBosonPP_xKern_Nsite_runscript.sh
 ```
  to have the simulations run to generate positive-P trajectories.  
 
@@ -19,4 +19,4 @@ matlab -nosplash -nodesktop -nodisplay < analysis.m
 ```
 from inside the simulation directory.  
 
-## Available geomerties
+## Available geometries
