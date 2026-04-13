@@ -33,5 +33,5 @@ filenameout = ['analysis_output_SBPP_xKern_1Site_Sc' correctnum2str(Sc) '_g' cor
 save(filenameout, 't');
 
 %List of scripts to process data
-SBPPxKern_check
+SBPPxKern_dynamics
 SBPPxKern_densitymatrix
