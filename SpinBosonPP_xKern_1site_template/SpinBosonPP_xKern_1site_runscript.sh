@@ -14,16 +14,16 @@ Gamma_d=0.0; # Spin decay
 Scal=1.0; # Diffusion gauge (G)
 time_run=100; # end time of simulation
 
-for sample in {1..1000} # Loop over 1 to total number of stochastic trajectories
+for s in {1..1000} # Loop over 1 to total number of stochastic trajectories
 do
 
-        mkdir Re${sample}
-        cd Re${sample}
+        mkdir Re${s}
+        cd Re${s}
 
         ../SpinBosonPP_xKern_1site --Scal=${Scal} --h=${hp} --OmC=${OmC} --OmZ=${OmZ} --Fp=${Fp} --g=${g} --gamB=${gamB} --Gamma_ph=${Gamma_ph} --Gamma_d=${Gamma_d} --Ttot=${time_run} --seed1=$RANDOM --seed2=$RANDOM --seed3=$RANDOM
 
-        mv file_output.xsil file_output_1Site_OmC${OmC}_OmZ${OmZ}_g${g}_gamB${gamB}_GamPh${Gamma_ph}_GamD${Gamma_d}_F${Fp}_h${hp}_tf${time_run}_Re${sample}.xsil
-        mv file_output.h5 file_output_1Site_OmC${OmC}_OmZ${OmZ}_g${g}_gamB${gamB}_GamPh${Gamma_ph}_GamD${Gamma_d}_F${Fp}_h${hp}_tf${time_run}_Re${sample}.h5
+        mv file_output.xsil file_output_1Site_OmC${OmC}_OmZ${OmZ}_g${g}_gamB${gamB}_GamPh${Gamma_ph}_GamD${Gamma_d}_F${Fp}_h${hp}_tf${time_run}_Re${s}.xsil
+        mv file_output.h5 file_output_1Site_OmC${OmC}_OmZ${OmZ}_g${g}_gamB${gamB}_GamPh${Gamma_ph}_GamD${Gamma_d}_F${Fp}_h${hp}_tf${time_run}_Re${s}.h5
 
         cd ../
 
