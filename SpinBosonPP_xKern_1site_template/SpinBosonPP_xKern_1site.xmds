@@ -87,7 +87,7 @@
     </initialisation>
   </vector>
 
-<!-- Complex Noises -->
+<!-- Complex Noises from JC interaction -->
   <noise_vector name="QNoiseC" dimensions="" kind="wiener" type="complex" method="dsfmt" seed="seed1 seed2 seed3">
     <components>
         eta_z
@@ -97,6 +97,7 @@
     </components>
   </noise_vector>
 
+<!-- Integrate element to solve for trajectories -->
   <sequence>
     <integrate algorithm="SI" interval="Ttot" steps="1000000">
       <samples>
