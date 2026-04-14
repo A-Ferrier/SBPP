@@ -22,7 +22,7 @@ do
         mkdir Re${s}
         cd Re${s}
 
-        ../SpinBosonPP_xKern_Nsite --N=${N} --Scal=${Scal} --h=${h} --OmC=${OmC} --OmZ=${OmZ} --J=${J} --Fp=${Fp} --Fa=${Fa} --g=${g} --gamB=${gamB} --Gamma_ph=${Gamma_phi} --Gamma_d=${Gamma_d} --Ttot=${time_run} --seed1=$RANDOM --seed2=$RANDOM --seed3=$RANDOM --seed4=$RANDOM --seed5=$RANDOM --seed6=$RANDOM
+        ../SpinBosonPP_xKern_NchainL --N=${N} --Scal=${Scal} --h=${h} --OmC=${OmC} --OmZ=${OmZ} --J=${J} --Fp=${Fp} --Fa=${Fa} --g=${g} --gamB=${gamB} --Gamma_ph=${Gamma_phi} --Gamma_d=${Gamma_d} --Ttot=${time_run} --seed1=$RANDOM --seed2=$RANDOM --seed3=$RANDOM --seed4=$RANDOM --seed5=$RANDOM --seed6=$RANDOM
 
         mv file_output.xsil file_output_${N}chainL_OmC${OmC}_OmZ${OmZ}_g${g}_J${J}_gamB${gamB}_GamPh${Gamma_phi}_GamD${Gamma_d}_F${Fp}_h${h}_tf${time_run}_Re${s}.xsil
         mv file_output.h5 file_output_${N}chainL_OmC${OmC}_OmZ${OmZ}_g${g}_J${J}_gamB${gamB}_GamPh${Gamma_phi}_GamD${Gamma_d}_F${Fp}_h${h}_tf${time_run}_Re${s}.h5
