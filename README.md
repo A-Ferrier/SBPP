@@ -1,5 +1,5 @@
 # SBPP
-Positive-P simulations for driven dissipative Jaynes-Cummings-Hubbard models, using new 3 variable kernel approach for spins, written for [xmds2](http://www.xmds.org/), with optional Matlab post-processing library.
+Positive-P simulations for driven dissipative Jaynes-Cummings-Hubbard models, using new generalized density matrix (GDM) kernel approach for spins, written for [xmds2](http://www.xmds.org/), with optional Matlab post-processing library.
 
 ## Using the code for simulations 
 Once you have xmds2 installed, make a copy of the template directory for the geometry you wish to simulate, e.g. SpinBosonPP_xKern_1site_template for 0D Jaynes-Cummings.  Use the command 
