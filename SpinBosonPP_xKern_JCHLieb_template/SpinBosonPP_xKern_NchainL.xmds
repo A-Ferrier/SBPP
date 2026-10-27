@@ -6,7 +6,7 @@
   </author>
 
   <description>
-    Positive P for N unit cell Jaynes-Cummings quasi-Lieb lattice using normalised 3 variable kernel
+    Positive P for N unit cell Jaynes-Cummings quasi-Lieb lattice using GDM kernel
   </description>
 
   <features>
