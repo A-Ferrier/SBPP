@@ -6,7 +6,7 @@
   </author>
 
   <description>
-    Positive P for 1 site Spin-Boson (Jaynes-Cummings) models using normalised 3 variable kernel
+    Positive P for 1 site Spin-Boson (Jaynes-Cummings) models using GDM kernel
   </description>
 
   <features>
